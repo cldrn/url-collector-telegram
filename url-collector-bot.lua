@@ -9,18 +9,18 @@ local bot, extension = require("lua-bot-api").configure(token)
 
 --onMessageReceive handler. 
 extension.onTextReceive = function (msg)
-  print(string.format("[%s] Incoming message from '%s':\n%s", os.time(), msg.from.first_name, msg.text))
+  print(string.format("[%s] Incoming message from '%s':\n%s", os.date(), msg.from.first_name, msg.text))
   msg.text = string.lower(msg.text)
-  if string.find(msg.text, "http://") or string.find(msg.text, "https://") then
-    for i in string.gmatch(msg.text, "%S+") do
-      print("Url detected in message")
-      local url = i:match("(http.-)$")
-      if url then
-        write_url(url)
-        bot.sendMessage(msg.chat.id, string.format("URL '%s' guardada.", url))
-      end
+  if msg.entities then
+  for _, x in pairs(msg.entities) do
+    if x.type == "url" then
+      local url = string.sub(msg.text, x.offset, x.offset + x.length)
+      write_url(url, msg.from.first_name)
+      bot.sendMessage(msg.chat.id, string.format("URL '%s' guardada.", url))
     end
-  elseif (msg.text == "/start") then
+  end
+  end
+  if (msg.text == "/hola") then
     bot.sendMessage(msg.chat.id, "¿Qué onda raza? ¿Una carnita asada? Soy " .. bot.first_name)
   elseif (msg.text == "/ping") then
     bot.sendMessage(msg.chat.id, "pong")
@@ -42,10 +42,10 @@ function get_urls()
 end
 
 --Stores URL in file. Each URL is stored as a new line.
-function write_url(url)
+function write_url(url, author)
   local file = io.open("urls.txt", "a")
   io.output(file)
-  io.write(string.format("%s\n", url))
+  io.write(string.format("%s [%s]\n", url, author))
   io.close(file)  
 end
 
