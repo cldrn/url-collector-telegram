@@ -38,13 +38,13 @@ end
 
 --Retrieves stored URLs.
 function get_urls()
-   local urls = {}
-   table.insert(urls, "URL list:")
-   local lines = {}
-   for line in io.lines("urls.txt") do
-      table.insert(urls, line)
-   end
-   return urls
+  local urls = {}
+  table.insert(urls, "URL list:")
+  local lines = {}
+  for line in io.lines("urls.txt") do
+    table.insert(urls, line)
+  end
+  return urls
 end
 
 --Stores URL in file. Each URL is stored as a new line.
