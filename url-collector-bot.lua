@@ -15,7 +15,6 @@ local bot, extension = require("lua-bot-api").configure(token)
 --onMessageReceive handler.
 extension.onTextReceive = function (msg)
   print(string.format("[%s] Incoming message from '%s':\n%s", os.date(), msg.from.first_name, msg.text))
-  msg.text = string.lower(msg.text)
   if msg.entities then
     for _, x in pairs(msg.entities) do
       if x.type == "url" then
