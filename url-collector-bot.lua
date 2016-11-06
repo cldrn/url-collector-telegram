@@ -30,7 +30,7 @@ extension.onTextReceive = function (msg)
   elseif (msg.text == "/ping") then
     bot.sendMessage(msg.chat.id, "pong")
   elseif (msg.text == "/list") then
-    bot.sendMessage(msg.chat.id, get_urls())
+    bot.sendMessage(msg.chat.id, table.concat(get_urls(), "\n")
   elseif (msg.text == "/help") or (msg.text == "/man") then
     bot.sendMessage(msg.chat.id, "/ping: Checks if I'm alive.\n/list: Returns a list of saved URLs.")
   end
@@ -38,10 +38,11 @@ end
 
 --Retrieves stored URLs.
 function get_urls()
-   local urls = "URL list:\n"
+   local urls = {}
+   table.insert(urls, "URL list:")
    local lines = {}
    for line in io.lines("urls.txt") do
-      urls = urls .. line .. "\n"
+      table.insert(urls, line)
    end
    return urls
 end
