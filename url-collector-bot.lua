@@ -17,13 +17,13 @@ extension.onTextReceive = function (msg)
   print(string.format("[%s] Incoming message from '%s':\n%s", os.date(), msg.from.first_name, msg.text))
   msg.text = string.lower(msg.text)
   if msg.entities then
-  for _, x in pairs(msg.entities) do
-    if x.type == "url" then
-      local url = string.sub(msg.text, x.offset, x.offset + x.length)
-      write_url(url, msg.from.first_name)
-      bot.sendMessage(msg.chat.id, string.format("URL '%s' saved.", url))
+    for _, x in pairs(msg.entities) do
+      if x.type == "url" then
+        local url = string.sub(msg.text, x.offset, x.offset + x.length)
+        write_url(url, msg.from.first_name)
+        bot.sendMessage(msg.chat.id, string.format("URL '%s' saved.", url))
+      end
     end
-  end
   end
   if (msg.text == "/hi") then
     bot.sendMessage(msg.chat.id, "Hello, I'm " .. bot.first_name)
