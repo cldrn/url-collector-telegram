@@ -29,7 +29,7 @@ extension.onTextReceive = function (msg)
   elseif (msg.text == "/ping") then
     bot.sendMessage(msg.chat.id, "pong")
   elseif (msg.text == "/list") then
-    bot.sendMessage(msg.chat.id, table.concat(get_urls(), "\n")
+    bot.sendMessage(msg.chat.id, table.concat(get_urls(), "\n"))
   elseif (msg.text == "/help") or (msg.text == "/man") then
     bot.sendMessage(msg.chat.id, "/ping: Checks if I'm alive.\n/list: Returns a list of saved URLs.")
   end
