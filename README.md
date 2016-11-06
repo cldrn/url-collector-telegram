@@ -1,5 +1,5 @@
 # url-collector-telegram
-Telegram bot to save URLs shared in a channel/conversation.
+Telegram bot to automatically save URLs shared in a channel/conversation.
 
 ##Where are the URLs stored?
 The bot saves the URLs in a text file with the format ``'<url> [<author]'.``
